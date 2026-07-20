@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="112" fill="#16181D"/>
+  <g transform="translate(256 256) scale(0.94) translate(-256 -256)">
+    <path d="M330 230 L462 412 L170 412 Z" fill="#FFFFFF"/>
+    <path d="M196 300 L292 412 L100 412 Z" fill="#FFFFFF"/>
+    <rect x="323" y="96" width="15" height="142" rx="7" fill="#FFFFFF"/>
+    <path d="M338 106 L412 132 L338 158 Z" fill="#FFFFFF"/>
+
+    <defs>
+      <g id="fig" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="286" cy="176" r="25"/>
+        <path d="M280 208 L268 272"/>
+        <path d="M282 222 L244 240"/>
+        <path d="M282 216 L320 190"/>
+        <path d="M268 272 L240 326"/>
+        <path d="M268 272 L306 306"/>
+        <circle cx="140" cy="250" r="25"/>
+        <path d="M148 282 L170 342"/>
+        <path d="M152 292 L244 240"/>
+        <path d="M148 286 L108 324"/>
+        <path d="M170 342 L136 396"/>
+        <path d="M170 342 L216 374"/>
+      </g>
+    </defs>
+    <use href="#fig" stroke="#16181D" stroke-width="48"/>
+    <use href="#fig" stroke="#FFFFFF" stroke-width="22"/>
+  </g>
+</svg>

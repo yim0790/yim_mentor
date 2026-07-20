@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "id": "2026-07-20-compounding",
+      "title": "복리는 수익률이 아니라 시간에 반응한다",
+      "date": "2026-07-20",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": ["투자", "마인드셋"],
+      "summary": "수익률을 1%p 올리는 것보다 10년을 더 버티는 쪽이 결과를 훨씬 크게 바꾼다는 이야기.",
+      "url": "",
+      "file": "2026-07-20-compounding.md"
+    },
+    {
+      "id": "2026-07-18-deepwork",
+      "title": "몰입의 조건 — 방해받지 않는 90분",
+      "date": "2026-07-18",
+      "kind": "video",
+      "source": "YouTube",
+      "tags": ["일하는법", "생산성"],
+      "summary": "집중은 의지가 아니라 환경 설계의 문제다. 90분 단위 블록을 만드는 방법.",
+      "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "file": "2026-07-18-deepwork.md"
+    }
+  ]
+}

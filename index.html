@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mentor</title>
+<meta name="description" content="유튜브와 소셜에서 만난 좋은 영상과 글을 모아두는 개인 저장소">
+<meta name="theme-color" content="#14171C">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icons/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mentor">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --ink:#14171C; --ink2:#414852; --mute:#8B929B;
+  --paper:#FBFAF8; --card:#FFFFFF; --line:#E7E4DE;
+  --accent:#12695C; --accent-soft:#E4F0ED;
+  --mark:#FFE45C; --mark-soft:#FFF6C9;
+  --r:14px;
+  --shell:min(720px,100%);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --ink:#EEF0F2; --ink2:#B9C0C8; --mute:#7E868F;
+    --paper:#101317; --card:#171B21; --line:#262C34;
+    --accent:#5ED3BE; --accent-soft:#16302C;
+    --mark:#C8A400; --mark-soft:#3A3212;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,BlinkMacSystemFont,system-ui,"Malgun Gothic",sans-serif;
+  font-size:17px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;
+  overflow-wrap:anywhere;
+}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+
+/* ── 상단 ───────────────────────────── */
+.top{
+  position:sticky; top:0; z-index:40;
+  background:var(--paper);
+  background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top);
+}
+.top-in{width:var(--shell);margin:0 auto;padding:12px 18px;display:flex;align-items:center;gap:12px;min-height:56px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.03em;font-size:20px}
+.brand svg{display:block}
+.spacer{flex:1}
+.iconbtn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;color:var(--ink2)}
+.iconbtn:hover{background:var(--card)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;background:var(--accent);width:0;transition:width .1s linear}
+
+/* ── 레이아웃 ───────────────────────── */
+.wrap{width:var(--shell);margin:0 auto;padding:0 18px 96px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+
+/* ── 목록 ───────────────────────────── */
+.lead{padding:26px 0 18px}
+.lead h1{margin:8px 0 4px;font-size:29px;font-weight:800;letter-spacing:-.035em;line-height:1.25}
+.lead p{margin:0;color:var(--mute);font-size:14px}
+.search{
+  display:flex;align-items:center;gap:10px;margin:0 0 18px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px;
+}
+.search input{flex:1;border:0;background:none;font:inherit;font-size:15px;color:var(--ink);outline:none;min-width:0}
+.search input::placeholder{color:var(--mute)}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 16px}
+.chip{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.row{border-bottom:1px solid var(--line)}
+.row a{display:block;padding:17px 4px;text-decoration:none;color:inherit}
+.row a:hover{background:var(--card)}
+.row .meta{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--mute);font-weight:600}
+.row h2{margin:5px 0 0;font-size:18px;font-weight:700;letter-spacing:-.02em;line-height:1.42}
+.row .tail{margin-top:7px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--mute)}
+.kind{display:inline-flex;align-items:center;gap:5px;padding:2px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:11px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.row.read h2{color:var(--ink2);font-weight:600}
+.row.read .dot{display:none}
+.tag{color:var(--mute)}
+.empty{padding:56px 0;text-align:center;color:var(--mute)}
+
+/* ── 본문 ───────────────────────────── */
+.back{display:inline-flex;align-items:center;gap:6px;margin:22px 0 0;font-size:14px;font-weight:600;color:var(--mute)}
+.article h1{margin:12px 0 10px;font-size:30px;line-height:1.3;font-weight:800;letter-spacing:-.035em}
+.article .abstract{margin:0 0 20px;color:var(--ink2);font-size:15px}
+.article .srcline{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12.5px;color:var(--mute);margin-bottom:22px}
+.body{font-size:17.5px;line-height:1.88;color:var(--ink)}
+.body h2{margin:38px 0 12px;font-size:21px;font-weight:800;letter-spacing:-.025em;line-height:1.4}
+.body h3{margin:28px 0 8px;font-size:17.5px;font-weight:700;color:var(--ink)}
+.body p{margin:0 0 18px}
+.body ul,.body ol{margin:0 0 18px;padding-left:22px}
+.body li{margin:0 0 8px}
+.body blockquote{margin:22px 0;padding:2px 0 2px 18px;border-left:3px solid var(--accent);color:var(--ink2)}
+.body hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+.body code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-size:.9em}
+.body strong{font-weight:700}
+.body .embed{position:relative;padding-top:56.25%;margin:0 0 22px;border-radius:var(--r);overflow:hidden;background:#000}
+.body .embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.speaking{background:linear-gradient(transparent 62%,var(--mark) 62%);border-radius:2px}
+
+/* ── 음성 바 ────────────────────────── */
+.tts{
+  position:fixed;left:0;right:0;bottom:0;z-index:50;
+  background:var(--card);
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-top:1px solid var(--line);
+  padding-bottom:env(safe-area-inset-bottom);
+  transform:translateY(120%);transition:transform .22s ease;
+}
+.tts.on{transform:none}
+.tts-in{width:var(--shell);margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:10px}
+.play{width:46px;height:46px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex:none}
+.play:disabled{opacity:.4}
+.tts-txt{flex:1;min-width:0}
+.tts-txt b{display:block;font-size:13.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tts-txt span{display:block;font-size:11.5px;color:var(--mute)}
+.mini{border:1px solid var(--line);border-radius:9px;padding:7px 10px;font-size:12.5px;font-weight:700;color:var(--ink2);background:var(--paper)}
+select.mini{max-width:130px}
+.warn{width:var(--shell);margin:0 auto;padding:0 18px 10px;font-size:12px;color:var(--mute)}
+@media (max-width:520px){ .tts-txt span{display:none} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-in">
+    <span class="brand">
+      <svg width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
+        <rect width="512" height="512" rx="112" fill="currentColor"/>
+        <g transform="translate(256 256) scale(0.94) translate(-256 -256)" fill="var(--paper)">
+          <path d="M330 230 L462 412 L170 412 Z"/><path d="M196 300 L292 412 L100 412 Z"/>
+          <rect x="323" y="96" width="15" height="142" rx="7"/><path d="M338 106 L412 132 L338 158 Z"/>
+        </g>
+        <g fill="none" stroke-linecap="round" stroke-linejoin="round" transform="translate(256 256) scale(0.94) translate(-256 -256)">
+          <g id="bfig"><circle cx="286" cy="176" r="25"/><path d="M280 208 L268 272"/><path d="M282 222 L244 240"/><path d="M282 216 L320 190"/><path d="M268 272 L240 326"/><path d="M268 272 L306 306"/><circle cx="140" cy="250" r="25"/><path d="M148 282 L170 342"/><path d="M152 292 L244 240"/><path d="M148 286 L108 324"/><path d="M170 342 L136 396"/><path d="M170 342 L216 374"/></g>
+        </g>
+        <use href="#bfig" stroke="currentColor" stroke-width="48" transform="translate(256 256) scale(0.94) translate(-256 -256)"/>
+        <use href="#bfig" stroke="var(--paper)" stroke-width="22" transform="translate(256 256) scale(0.94) translate(-256 -256)"/>
+      </svg>
+      Mentor
+    </span>
+    <span class="spacer"></span>
+    <button class="iconbtn" id="btnReload" title="새 글 불러오기" aria-label="새 글 불러오기">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><path d="M20 11a8 8 0 1 0-1.6 5"/><path d="M20 4v7h-7"/></svg>
+    </button>
+  </div>
+  <div class="progress" id="prog"></div>
+</header>
+
+<main class="wrap" id="view"></main>
+
+<div class="tts" id="ttsbar" aria-live="polite">
+  <div class="tts-in">
+    <button class="play" id="btnPlay" aria-label="재생">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
+    </button>
+    <button class="mini" id="btnStop" aria-label="정지">■</button>
+    <div class="tts-txt"><b id="ttsTitle">읽어주기</b><span id="ttsSub">대기 중</span></div>
+    <select class="mini" id="selVoice" aria-label="음성 선택"></select>
+    <button class="mini" id="btnRate" aria-label="속도">1.0x</button>
+  </div>
+  <div class="warn" id="ttsWarn" hidden></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   Mentor — 데이터 분리형 개인 콘텐츠 저장소
+   콘텐츠 추가는 content/posts.json + content/*.md 만 수정
+   ══════════════════════════════════════════════════════════ */
+const $  = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const view = $('#view');
+const LS = {
+  get:(k,d)=>{try{return JSON.parse(localStorage.getItem('mentor:'+k))??d}catch(e){return d}},
+  set:(k,v)=>{try{localStorage.setItem('mentor:'+k,JSON.stringify(v))}catch(e){}}
+};
+let POSTS = [];
+let filter = {q:'', tag:''};
+
+/* ── 마크다운 (경량 파서) ───────────────────── */
+function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+function inline(s){
+  return esc(s)
+    .replace(/`([^`]+)`/g,'<code>$1</code>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>')
+    .replace(/\[([^\]]+)\]\(([^)\s]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/(^|\s)(https?:\/\/[^\s<]+)/g,'$1<a href="$2" target="_blank" rel="noopener">$2</a>');
+}
+function ytId(u){
+  const m = u.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? m[1] : null;
+}
+function md(src){
+  const lines = src.replace(/\r/g,'').split('\n');
+  let out=[], list=null;
+  const closeList=()=>{ if(list){out.push(`</${list}>`); list=null;} };
+  for(let raw of lines){
+    const t = raw.trim();
+    if(!t){ closeList(); continue; }
+    const yt = ytId(t);
+    if(yt && /^(https?:\/\/)?\S+$/.test(t)){
+      closeList();
+      out.push(`<div class="embed"><iframe src="https://www.youtube-nocookie.com/embed/${yt}" title="영상" allowfullscreen loading="lazy"></iframe></div>`);
+      continue;
+    }
+    if(/^---+$/.test(t)){ closeList(); out.push('<hr>'); continue; }
+    let m;
+    if((m = t.match(/^(#{1,4})\s+(.*)$/))){
+      closeList(); const lv = Math.min(m[1].length+1,4);
+      out.push(`<h${lv}>${inline(m[2])}</h${lv}>`); continue;
+    }
+    if((m = t.match(/^>\s?(.*)$/))){ closeList(); out.push(`<blockquote>${inline(m[1])}</blockquote>`); continue; }
+    if((m = t.match(/^[-*•]\s+(.*)$/))){
+      if(list!=='ul'){ closeList(); out.push('<ul>'); list='ul'; }
+      out.push(`<li>${inline(m[1])}</li>`); continue;
+    }
+    if((m = t.match(/^\d+[.)]\s+(.*)$/))){
+      if(list!=='ol'){ closeList(); out.push('<ol>'); list='ol'; }
+      out.push(`<li>${inline(m[1])}</li>`); continue;
+    }
+    closeList(); out.push(`<p>${inline(t)}</p>`);
+  }
+  closeList();
+  return out.join('\n');
+}
+
+/* ── 유틸 ───────────────────────────────────── */
+const fmtDate = d => (d||'').replace(/-/g,'.').replace(/^20/,'');
+const readMin = t => Math.max(1, Math.round(t.replace(/\s/g,'').length/500));
+function kindLabel(k){ return {video:'영상',article:'글',book:'책',podcast:'팟캐스트'}[k] || '글'; }
+
+/* ── 목록 화면 ──────────────────────────────── */
+function renderList(){
+  const readMap = LS.get('read',{});
+  const tags = [...new Set(POSTS.flatMap(p=>p.tags||[]))];
+  const q = filter.q.trim().toLowerCase();
+  const items = POSTS.filter(p=>{
+    if(filter.tag && !(p.tags||[]).includes(filter.tag)) return false;
+    if(!q) return true;
+    return (p.title+' '+(p.summary||'')+' '+(p.tags||[]).join(' ')+' '+(p.source||'')).toLowerCase().includes(q);
+  });
+
+  view.innerHTML = `
+    <section class="lead">
+      <div class="eyebrow">저장한 콘텐츠 ${POSTS.length}개</div>
+      <h1>다시 볼 만한 것만<br>모아둔 곳</h1>
+      <p>제목을 누르면 본문이 열리고, 아래 재생 버튼으로 읽어줍니다.</p>
+    </section>
+    <div class="search">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+      <input id="q" type="search" placeholder="제목·태그로 찾기" value="${filter.q.replace(/"/g,'&quot;')}">
+    </div>
+    ${tags.length?`<div class="chips">
+      <button class="chip" data-tag="" aria-pressed="${!filter.tag}">전체</button>
+      ${tags.map(t=>`<button class="chip" data-tag="${t}" aria-pressed="${filter.tag===t}">${t}</button>`).join('')}
+    </div>`:''}
+    ${items.length ? `<ul class="list">${items.map(p=>`
+      <li class="row ${readMap[p.id]?'read':''}">
+        <a href="#/p/${encodeURIComponent(p.id)}">
+          <div class="meta"><span class="dot"></span><span>${fmtDate(p.date)}</span><span class="kind">${kindLabel(p.kind)}</span>${p.source?`<span class="tag">· ${p.source}</span>`:''}</div>
+          <h2>${p.title}</h2>
+          <div class="tail">${(p.tags||[]).map(t=>'#'+t).join(' ')}</div>
+        </a>
+      </li>`).join('')}</ul>`
+      : `<div class="empty">조건에 맞는 콘텐츠가 없습니다.</div>`}
+  `;
+
+  const qi = $('#q');
+  qi.addEventListener('input', e=>{ filter.q = e.target.value; const pos=e.target.selectionStart; renderList(); const n=$('#q'); n.focus(); n.setSelectionRange(pos,pos); });
+  $$('.chip').forEach(b=>b.addEventListener('click',()=>{ filter.tag = b.dataset.tag; renderList(); }));
+  document.title = 'Mentor';
+}
+
+/* ── 본문 화면 ──────────────────────────────── */
+async function renderPost(id){
+  const p = POSTS.find(x=>String(x.id)===String(id));
+  if(!p){ location.hash='#/'; return; }
+  view.innerHTML = `<div class="empty">불러오는 중…</div>`;
+  let text = '';
+  try{
+    const r = await fetch('./content/'+p.file, {cache:'no-cache'});
+    if(!r.ok) throw new Error(r.status);
+    text = await r.text();
+  }catch(e){
+    view.innerHTML = `<a class="back" href="#/">← 목록</a><div class="empty">본문 파일을 불러오지 못했습니다.<br><small>content/${p.file}</small></div>`;
+    return;
+  }
+  view.innerHTML = `
+    <a class="back" href="#/">← 목록</a>
+    <article class="article">
+      <h1>${p.title}</h1>
+      ${p.summary?`<p class="abstract">${p.summary}</p>`:''}
+      <div class="srcline">
+        <span class="kind">${kindLabel(p.kind)}</span>
+        <span>${fmtDate(p.date)}</span>
+        ${p.source?`<span>· ${p.source}</span>`:''}
+        <span>· 약 ${readMin(text)}분</span>
+        ${p.url?`<span>· <a href="${p.url}" target="_blank" rel="noopener">원본 보기</a></span>`:''}
+      </div>
+      <div class="body" id="body">${md(text)}</div>
+    </article>`;
+  const readMap = LS.get('read',{}); readMap[p.id]=Date.now(); LS.set('read',readMap);
+  document.title = p.title + ' · Mentor';
+  window.scrollTo(0,0);
+  TTS.load(p.title, $('#body'));
+}
+
+/* ── 라우터 ─────────────────────────────────── */
+function route(){
+  TTS.stop();
+  const h = location.hash || '#/';
+  const m = h.match(/^#\/p\/(.+)$/);
+  if(m) renderPost(decodeURIComponent(m[1]));
+  else { renderList(); TTS.clear(); }
+}
+window.addEventListener('hashchange', route);
+
+/* ── 스크롤 진행바 ──────────────────────────── */
+addEventListener('scroll', ()=>{
+  const h = document.documentElement.scrollHeight - innerHeight;
+  $('#prog').style.width = (h>40 ? (scrollY/h*100) : 0) + '%';
+}, {passive:true});
+
+/* ══ 읽어주기 (Web Speech API) ═══════════════ */
+const TTS = {
+  blocks:[], chunks:[], i:0, playing:false, voices:[], voice:null,
+  rate: LS.get('rate',1.0), title:'', keepAlive:null,
+
+  init(){
+    if(!('speechSynthesis' in window)){
+      $('#ttsWarn').hidden=false;
+      $('#ttsWarn').textContent='이 브라우저는 음성 읽기를 지원하지 않습니다.';
+      $('#btnPlay').disabled=true; return;
+    }
+    this.refreshVoices();
+    speechSynthesis.onvoiceschanged = ()=>this.refreshVoices();
+    $('#btnPlay').addEventListener('click', ()=>this.toggle());
+    $('#btnStop').addEventListener('click', ()=>this.stop());
+    $('#btnRate').addEventListener('click', ()=>{
+      const steps=[0.9,1.0,1.1,1.25,1.5];
+      this.rate = steps[(steps.indexOf(this.rate)+1)%steps.length] || 1.0;
+      LS.set('rate',this.rate); $('#btnRate').textContent=this.rate.toFixed(2).replace(/0$/,'')+'x';
+      if(this.playing){ const at=this.i; this.stop(); this.i=at; this.speak(); }
+    });
+    $('#btnRate').textContent = this.rate.toFixed(2).replace(/0$/,'')+'x';
+    $('#selVoice').addEventListener('change', e=>{
+      this.voice = this.voices.find(v=>v.voiceURI===e.target.value) || null;
+      LS.set('voiceURI', e.target.value);
+      if(this.playing){ const at=this.i; this.stop(); this.i=at; this.speak(); }
+    });
+    addEventListener('beforeunload', ()=>speechSynthesis.cancel());
+  },
+
+  // 남성 음성 우선 탐색 (기기에 있을 때만 가능)
+  refreshVoices(){
+    const all = speechSynthesis.getVoices();
+    this.voices = all.filter(v=>/^ko/i.test(v.lang));
+    if(!this.voices.length) this.voices = all;
+    const MALE = /injoon|inJoon|male|남성|남자|gyeong|jinho|hyunsu|minsu|seoyeon?_m/i;
+    const FEM  = /heami|sunhi|yuna|female|여성|여자|nara|jiwon/i;
+    const saved = LS.get('voiceURI','');
+    this.voice =
+      this.voices.find(v=>v.voiceURI===saved) ||
+      this.voices.find(v=>MALE.test(v.name)) ||
+      this.voices.find(v=>!FEM.test(v.name)) ||
+      this.voices[0] || null;
+
+    const sel = $('#selVoice');
+    sel.innerHTML = this.voices.map(v=>
+      `<option value="${v.voiceURI}" ${this.voice&&v.voiceURI===this.voice.voiceURI?'selected':''}>${v.name.replace(/^Microsoft\s|\sOnline.*$/g,'')}</option>`
+    ).join('') || '<option>기본 음성</option>';
+
+    const w=$('#ttsWarn');
+    if(this.voice && !MALE.test(this.voice.name)){
+      w.hidden=false;
+      w.textContent='이 기기에는 한국어 남성 음성이 없어 기본 음성으로 재생됩니다. 기기 설정에서 한국어 음성을 추가하면 목록에 나타납니다.';
+    } else { w.hidden=true; }
+  },
+
+  // 본문을 블록 단위로 수집(하이라이트) + 긴 블록은 문장으로 분할(재생 안정성)
+  load(title, root){
+    this.clear();
+    this.title = title;
+    this.blocks = $$('h2,h3,p,li,blockquote', root).filter(el=>el.textContent.trim().length>1);
+    this.chunks = [];
+    this.blocks.forEach((el,bi)=>{
+      const t = el.textContent.trim().replace(/\s+/g,' ');
+      if(t.length<=230){ this.chunks.push({b:bi,t}); return; }
+      let buf='';
+      (t.match(/[^.!?…]+[.!?…]*\s*/g) || [t]).forEach(s=>{
+        if((buf+' '+s).trim().length>230 && buf){ this.chunks.push({b:bi,t:buf.trim()}); buf=s; }
+        else buf = (buf?buf+' ':'')+s;
+      });
+      if(buf.trim()) this.chunks.push({b:bi,t:buf.trim()});
+      // 구두점이 전혀 없는 긴 문단은 길이 기준으로 강제 분할
+      this.chunks = this.chunks.flatMap(c=>{
+        if(c.t.length<=260) return [c];
+        const parts=[]; for(let k=0;k<c.t.length;k+=220) parts.push({b:c.b,t:c.t.slice(k,k+220)});
+        return parts;
+      });
+    });
+    this.i=0;
+    $('#ttsTitle').textContent = title;
+    $('#ttsSub').textContent = this.chunks.length ? `${this.blocks.length}개 문단 · 읽을 준비 완료` : '읽을 내용 없음';
+    $('#btnPlay').disabled = !this.chunks.length;
+    if(this.chunks.length) $('#ttsbar').classList.add('on');
+  },
+
+  clear(){
+    this.stop(); this.blocks=[]; this.chunks=[]; this.i=0;
+    $('#ttsbar').classList.remove('on');
+  },
+
+  toggle(){
+    if(!('speechSynthesis' in window)) return;
+    if(this.playing){ speechSynthesis.pause(); this.setPlaying(false); $('#ttsSub').textContent='일시정지'; return; }
+    if(speechSynthesis.paused && speechSynthesis.speaking){ speechSynthesis.resume(); this.setPlaying(true); return; }
+    this.speak();
+  },
+
+  speak(){
+    if(this.i>=this.chunks.length){ this.i=0; }
+    speechSynthesis.cancel();
+    this.setPlaying(true);
+    this.next();
+    // Chrome 장시간 재생 끊김 방지
+    clearInterval(this.keepAlive);
+    this.keepAlive = setInterval(()=>{
+      if(!this.playing) return;
+      if(speechSynthesis.speaking && !speechSynthesis.paused){ speechSynthesis.pause(); speechSynthesis.resume(); }
+    }, 9000);
+  },
+
+  next(){
+    if(this.i>=this.chunks.length){ this.finish(); return; }
+    const c = this.chunks[this.i];
+    this.highlight(c.b);
+    const u = new SpeechSynthesisUtterance(c.t);
+    if(this.voice){ u.voice=this.voice; u.lang=this.voice.lang; } else u.lang='ko-KR';
+    u.rate=this.rate; u.pitch=0.92; u.volume=1;
+    u.onend = ()=>{ if(!this.playing) return; this.i++; this.next(); };
+    u.onerror = ()=>{ if(!this.playing) return; this.i++; this.next(); };
+    $('#ttsSub').textContent = `${Math.min(c.b+1,this.blocks.length)} / ${this.blocks.length} 문단`;
+    speechSynthesis.speak(u);
+  },
+
+  highlight(bi){
+    this.blocks.forEach(el=>el.classList.remove('speaking'));
+    const el = this.blocks[bi];
+    if(!el) return;
+    el.classList.add('speaking');
+    const r = el.getBoundingClientRect();
+    if(r.top < 70 || r.bottom > innerHeight-110){
+      el.scrollIntoView({behavior:'smooth', block:'center'});
+    }
+  },
+
+  finish(){
+    this.setPlaying(false); this.i=0;
+    this.blocks.forEach(el=>el.classList.remove('speaking'));
+    $('#ttsSub').textContent='다 읽었습니다';
+  },
+
+  stop(){
+    clearInterval(this.keepAlive);
+    if('speechSynthesis' in window) speechSynthesis.cancel();
+    this.setPlaying(false); this.i=0;
+    this.blocks.forEach(el=>el.classList.remove('speaking'));
+    if(this.chunks.length) $('#ttsSub').textContent='대기 중';
+  },
+
+  setPlaying(v){
+    this.playing=v;
+    $('#btnPlay').innerHTML = v
+      ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><rect x="7" y="5" width="3.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="3.5" height="14" rx="1.2"/></svg>'
+      : '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
+    $('#btnPlay').setAttribute('aria-label', v?'일시정지':'재생');
+  }
+};
+
+/* ── 부팅 ───────────────────────────────────── */
+async function loadPosts(){
+  const r = await fetch('./content/posts.json', {cache:'no-cache'});
+  const data = await r.json();
+  POSTS = (data.posts||[]).sort((a,b)=> (b.date||'').localeCompare(a.date||''));
+}
+$('#btnReload').addEventListener('click', async ()=>{
+  try{ await loadPosts(); route(); }catch(e){ alert('목록을 새로 가져오지 못했습니다.'); }
+});
+
+(async function(){
+  TTS.init();
+  try{ await loadPosts(); }
+  catch(e){
+    view.innerHTML = `<div class="empty">콘텐츠 목록(content/posts.json)을 읽지 못했습니다.<br><small>로컬에서 열 때는 웹서버로 실행해야 합니다.</small></div>`;
+    return;
+  }
+  route();
+})();
+
+if('serviceWorker' in navigator){
+  addEventListener('load', ()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
