@@ -133,6 +133,36 @@ a{color:var(--accent)}
 select.mini{max-width:130px}
 .warn{width:var(--shell);margin:0 auto;padding:0 18px 10px;font-size:12px;color:var(--mute)}
 @media (max-width:520px){ .tts-txt span{display:none} }
+
+/* ── 북마크 ─────────────────────────── */
+.wrap{position:relative}
+.row{position:relative}
+.row a{padding-right:40px}
+.bm{position:absolute;right:-2px;top:13px;width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--mute)}
+.bm:hover{background:var(--card)}
+.bm.on{color:#E9B500}
+.chip.bmc[aria-pressed="true"]{background:#E9B500;border-color:#E9B500;color:#1b1b1b}
+.bmline{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:8px;padding:3px 10px;font-size:12px;font-weight:700;color:var(--ink2);background:var(--card)}
+.bmline.on{color:#3a2f00;background:#FFE45C;border-color:#FFE45C}
+.hint{font-size:12px;color:var(--mute);margin:-8px 0 20px;display:flex;align-items:center;gap:6px}
+
+/* ── 형광펜 ─────────────────────────── */
+mark.hl{border-radius:3px;padding:0 1px;color:inherit;cursor:pointer}
+mark.hl0{background:var(--mark)}
+mark.hl1{background:#B6E7A0}
+mark.hl2{background:#F7B8D2}
+@media (prefers-color-scheme: dark){
+  mark.hl0{background:#8A7400;color:#fff}
+  mark.hl1{background:#2F5D22;color:#fff}
+  mark.hl2{background:#6D2B47;color:#fff}
+}
+.hltool{position:absolute;z-index:60;display:flex;gap:6px;align-items:center;
+  background:var(--card);border:1px solid var(--line);border-radius:11px;padding:7px 9px;
+  box-shadow:0 8px 24px rgba(0,0,0,.22);transform:translate(-50%,-115%)}
+.hltool button{width:26px;height:26px;border-radius:7px;border:1px solid var(--line);padding:0}
+.hltool .sw0{background:var(--mark)}
+.hltool .sw1{background:#B6E7A0}
+.hltool .sw2{background:#F7B8D2}
 </style>
 </head>
 <body>
@@ -190,7 +220,17 @@ const LS = {
   set:(k,v)=>{try{localStorage.setItem('mentor:'+k,JSON.stringify(v))}catch(e){}}
 };
 let POSTS = [];
-let filter = {q:'', tag:''};
+let filter = {q:'', tag:'', bm:false};
+
+/* ── 북마크 (글 단위, 기기 저장) ───────────── */
+const BM = {
+  map:()=>LS.get('bookmarks',{}),
+  has:id=>!!LS.get('bookmarks',{})[id],
+  toggle(id){ const m=LS.get('bookmarks',{}); if(m[id]) delete m[id]; else m[id]=Date.now(); LS.set('bookmarks',m); return !!m[id]; }
+};
+const bmSvg = on => on
+  ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>'
+  : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.3-4.1 5.9-.9z"/></svg>';
 
 /* ── 마크다운 (경량 파서) ───────────────────── */
 function esc(s){return s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
@@ -245,12 +285,122 @@ const fmtDate = d => (d||'').replace(/-/g,'.').replace(/^20/,'');
 const readMin = t => Math.max(1, Math.round(t.replace(/\s/g,'').length/500));
 function kindLabel(k){ return {video:'영상',article:'글',book:'책',podcast:'팟캐스트'}[k] || '글'; }
 
+/* ── 형광펜 (문장 단위, 기기 저장) ─────────── */
+const HL_SEL = 'h2,h3,p,li,blockquote';
+function hlOffset(root, node, off){
+  const r = document.createRange();
+  r.selectNodeContents(root); r.setEnd(node, off);
+  return r.toString().length;
+}
+function hlApply(block, ranges){
+  const walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT);
+  const nodes=[]; let acc=0, n;
+  while((n=walker.nextNode())){ nodes.push({node:n, start:acc, end:acc+n.nodeValue.length}); acc+=n.nodeValue.length; }
+  nodes.forEach(tn=>{
+    const segs=[];
+    ranges.forEach(rg=>{ const s=Math.max(rg.s,tn.start), e=Math.min(rg.e,tn.end); if(e>s) segs.push({s:s-tn.start,e:e-tn.start,c:rg.c||0}); });
+    if(!segs.length) return;
+    segs.sort((a,b)=>a.s-b.s);
+    const txt=tn.node.nodeValue, frag=document.createDocumentFragment();
+    let cur=0;
+    segs.forEach(sg=>{
+      if(sg.e<=cur) return;
+      const s=Math.max(sg.s,cur);
+      if(s>cur) frag.appendChild(document.createTextNode(txt.slice(cur,s)));
+      const mk=document.createElement('mark'); mk.className='hl hl'+sg.c; mk.textContent=txt.slice(s,sg.e); frag.appendChild(mk);
+      cur=sg.e;
+    });
+    if(cur<txt.length) frag.appendChild(document.createTextNode(txt.slice(cur)));
+    tn.node.parentNode.replaceChild(frag, tn.node);
+  });
+}
+const HL = {
+  id:null, tool:null, pending:null,
+  mount(id){
+    this.id=id; this.pending=null;
+    this.render();
+    const body=$('#body'); if(!body) return;
+    const onUp = ()=>setTimeout(()=>this.onSelect(),0);
+    body.addEventListener('mouseup', onUp);
+    body.addEventListener('touchend', onUp);
+    body.addEventListener('click', e=>{
+      const mk = e.target.closest && e.target.closest('mark.hl');
+      if(mk) this.removeMark(mk);
+    });
+  },
+  render(){
+    const body=$('#body'); if(!body) return;
+    $$('mark.hl',body).forEach(m=>{ m.parentNode.replaceChild(document.createTextNode(m.textContent), m); });
+    const blocks=$$(HL_SEL,body); blocks.forEach(b=>b.normalize());
+    const all=LS.get('hl:'+this.id,[]);
+    blocks.forEach((b,bi)=>{ const rs=all.filter(r=>r.b===bi); if(rs.length) hlApply(b,rs); });
+  },
+  onSelect(){
+    const body=$('#body'); const sel=window.getSelection();
+    if(!body||!sel||sel.isCollapsed||!sel.rangeCount){ this.hide(); return; }
+    const rng=sel.getRangeAt(0);
+    if(!body.contains(rng.commonAncestorContainer)){ this.hide(); return; }
+    const blocks=$$(HL_SEL,body);
+    const block=this.blockOf(rng.startContainer, blocks);
+    if(!block){ this.hide(); return; }
+    const bi=blocks.indexOf(block);
+    const s=hlOffset(block, rng.startContainer, rng.startOffset);
+    const e=block.contains(rng.endContainer) ? hlOffset(block, rng.endContainer, rng.endOffset) : block.textContent.length;
+    if(e<=s){ this.hide(); return; }
+    this.pending={b:bi,s,e};
+    this.show(rng.getBoundingClientRect());
+  },
+  blockOf(node, blocks){
+    let el = node.nodeType===3 ? node.parentElement : node;
+    while(el){ if(blocks.includes(el)) return el; el=el.parentElement; }
+    return null;
+  },
+  show(rect){
+    if(!this.tool){
+      const t=document.createElement('div'); t.className='hltool';
+      t.innerHTML='<button class="sw0" data-c="0" aria-label="노랑"></button><button class="sw1" data-c="1" aria-label="초록"></button><button class="sw2" data-c="2" aria-label="분홍"></button>';
+      t.addEventListener('mousedown', ev=>ev.preventDefault());
+      t.addEventListener('click', ev=>{ const b=ev.target.closest('button'); if(b) this.add(+b.dataset.c); });
+      view.appendChild(t); this.tool=t;
+    }
+    const vr=view.getBoundingClientRect();
+    this.tool.style.left=(rect.left+rect.width/2 - vr.left)+'px';
+    this.tool.style.top=(rect.top - vr.top)+'px';
+    this.tool.style.display='flex';
+  },
+  hide(){ if(this.tool) this.tool.style.display='none'; },
+  add(c){
+    if(!this.pending) return;
+    const all=LS.get('hl:'+this.id,[]);
+    all.push({b:this.pending.b, s:this.pending.s, e:this.pending.e, c});
+    LS.set('hl:'+this.id, all);
+    this.pending=null; this.hide();
+    const sel=window.getSelection(); if(sel) sel.removeAllRanges();
+    this.render();
+  },
+  removeMark(mk){
+    const body=$('#body'); const blocks=$$(HL_SEL,body);
+    const block=this.blockOf(mk, blocks); if(!block) return;
+    const bi=blocks.indexOf(block);
+    const r=document.createRange(); r.selectNodeContents(block); r.setEndBefore(mk);
+    const s=r.toString().length, e=s+mk.textContent.length;
+    let all=LS.get('hl:'+this.id,[]);
+    all=all.filter(rg=> !(rg.b===bi && rg.s<e && rg.e>s));
+    LS.set('hl:'+this.id, all);
+    this.render();
+  },
+  teardown(){ this.hide(); this.id=null; this.pending=null; }
+};
+
 /* ── 목록 화면 ──────────────────────────────── */
 function renderList(){
   const readMap = LS.get('read',{});
   const tags = [...new Set(POSTS.flatMap(p=>p.tags||[]))];
   const q = filter.q.trim().toLowerCase();
+  const bmMap = BM.map();
+  const bmCount = POSTS.filter(p=>bmMap[p.id]).length;
   const items = POSTS.filter(p=>{
+    if(filter.bm && !bmMap[p.id]) return false;
     if(filter.tag && !(p.tags||[]).includes(filter.tag)) return false;
     if(!q) return true;
     return (p.title+' '+(p.summary||'')+' '+(p.tags||[]).join(' ')+' '+(p.source||'')).toLowerCase().includes(q);
@@ -266,24 +416,34 @@ function renderList(){
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--mute)" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
       <input id="q" type="search" placeholder="제목·태그로 찾기" value="${filter.q.replace(/"/g,'&quot;')}">
     </div>
-    ${tags.length?`<div class="chips">
-      <button class="chip" data-tag="" aria-pressed="${!filter.tag}">전체</button>
+    <div class="chips">
+      <button class="chip bmc" data-bm aria-pressed="${filter.bm}">★ 북마크${bmCount?` ${bmCount}`:''}</button>
+      <button class="chip" data-tag="" aria-pressed="${!filter.tag && !filter.bm}">전체</button>
       ${tags.map(t=>`<button class="chip" data-tag="${t}" aria-pressed="${filter.tag===t}">${t}</button>`).join('')}
-    </div>`:''}
+    </div>
     ${items.length ? `<ul class="list">${items.map(p=>`
       <li class="row ${readMap[p.id]?'read':''}">
+        <button class="bm ${bmMap[p.id]?'on':''}" data-bm-id="${p.id}" aria-label="북마크" aria-pressed="${!!bmMap[p.id]}">${bmSvg(!!bmMap[p.id])}</button>
         <a href="#/p/${encodeURIComponent(p.id)}">
           <div class="meta"><span class="dot"></span><span>${fmtDate(p.date)}</span><span class="kind">${kindLabel(p.kind)}</span>${p.source?`<span class="tag">· ${p.source}</span>`:''}</div>
           <h2>${p.title}</h2>
           <div class="tail">${(p.tags||[]).map(t=>'#'+t).join(' ')}</div>
         </a>
       </li>`).join('')}</ul>`
-      : `<div class="empty">조건에 맞는 콘텐츠가 없습니다.</div>`}
+      : `<div class="empty">${filter.bm?'북마크한 글이 없습니다.':'조건에 맞는 콘텐츠가 없습니다.'}</div>`}
   `;
 
   const qi = $('#q');
   qi.addEventListener('input', e=>{ filter.q = e.target.value; const pos=e.target.selectionStart; renderList(); const n=$('#q'); n.focus(); n.setSelectionRange(pos,pos); });
-  $$('.chip').forEach(b=>b.addEventListener('click',()=>{ filter.tag = b.dataset.tag; renderList(); }));
+  $$('.chip[data-tag]').forEach(b=>b.addEventListener('click',()=>{ filter.tag = b.dataset.tag; filter.bm=false; renderList(); }));
+  const bc = $('.chip.bmc'); if(bc) bc.addEventListener('click',()=>{ filter.bm=!filter.bm; filter.tag=''; renderList(); });
+  $$('.bm[data-bm-id]').forEach(b=>b.addEventListener('click',e=>{
+    e.preventDefault(); e.stopPropagation();
+    const on = BM.toggle(b.dataset.bmId);
+    b.classList.toggle('on',on); b.setAttribute('aria-pressed',on); b.innerHTML=bmSvg(on);
+    if(filter.bm && !on) renderList();
+    else { const c=$('.chip.bmc'); const n=POSTS.filter(p=>BM.has(p.id)).length; if(c) c.textContent='★ 북마크'+(n?` ${n}`:''); }
+  }));
   document.title = 'Mentor';
 }
 
@@ -312,18 +472,23 @@ async function renderPost(id){
         ${p.source?`<span>· ${p.source}</span>`:''}
         <span>· 약 ${readMin(text)}분</span>
         ${p.url?`<span>· <a href="${p.url}" target="_blank" rel="noopener">원본 보기</a></span>`:''}
+        <button class="bmline ${BM.has(p.id)?'on':''}" id="bmLine" aria-pressed="${BM.has(p.id)}">${bmSvg(BM.has(p.id))}<span>북마크</span></button>
       </div>
+      <p class="hint">문장을 드래그하면 형광펜을 칠할 수 있어요. 칠한 곳을 다시 누르면 지워집니다.</p>
       <div class="body" id="body">${md(text)}</div>
     </article>`;
   const readMap = LS.get('read',{}); readMap[p.id]=Date.now(); LS.set('read',readMap);
   document.title = p.title + ' · Mentor';
   window.scrollTo(0,0);
   TTS.load(p.title, $('#body'));
+  HL.mount(p.id);
+  const bl = $('#bmLine');
+  bl.addEventListener('click', ()=>{ const on=BM.toggle(p.id); bl.classList.toggle('on',on); bl.setAttribute('aria-pressed',on); bl.innerHTML=bmSvg(on)+'<span>북마크</span>'; });
 }
 
 /* ── 라우터 ─────────────────────────────────── */
 function route(){
-  TTS.stop();
+  TTS.stop(); HL.teardown();
   const h = location.hash || '#/';
   const m = h.match(/^#\/p\/(.+)$/);
   if(m) renderPost(decodeURIComponent(m[1]));
@@ -335,6 +500,7 @@ window.addEventListener('hashchange', route);
 addEventListener('scroll', ()=>{
   const h = document.documentElement.scrollHeight - innerHeight;
   $('#prog').style.width = (h>40 ? (scrollY/h*100) : 0) + '%';
+  HL.hide();
 }, {passive:true});
 
 /* ══ 읽어주기 (Web Speech API) ═══════════════ */
