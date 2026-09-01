@@ -1,6 +1,30 @@
 {
   "posts": [
     {
+      "id": "2026-09-01-work-happiness",
+      "title": "일과 삶의 조화로 행복을 설계하는 법 — 김은주 교수",
+      "date": "2026-09-01",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": ["행복", "자기계발", "심리"],
+      "summary": "일은 행복의 장애물이 아니라 자아실현의 도구다. 자기결정성 3요소, 성장 마인드셋, 자극과 반응 사이의 태도 선택.",
+      "url": "",
+      "file": "2026-09-01-work-happiness.md",
+      "driveId": "1OoUi82TMsJNRZ0a2P8QyEOvTWKmrBatJBojQ-so_VHU"
+    },
+    {
+      "id": "2026-09-01-irreplaceable-ai",
+      "title": "AI 시대, 대체 불가능한 존재가 되는 법 — 유영만 교수",
+      "date": "2026-09-01",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": ["AI", "커리어", "자기계발"],
+      "summary": "정답은 기계에 맡기고 사랑에서 나오는 질문과 현장의 '방법'으로 원본이 되는 법. 끈기보다 끊기, 넘버원보다 온리원.",
+      "url": "",
+      "file": "2026-09-01-irreplaceable-ai.md",
+      "driveId": "1fuwxc15oE9M4gUNEElTN280nl1zz03QB6SnDf4-rKj8"
+    },
+    {
       "id": "2026-07-22-pension",
       "title": "노후 빈곤 탈출 — 국민연금 수령 시기와 4층 연금 전략",
       "date": "2026-07-22",
@@ -53,7 +77,8 @@
       "tags": ["소통", "심리", "관계"],
       "summary": "감정을 억누르거나 폭발시키는 대신, 사실·느낌·필요·요구 4단계로 당당하게 경계를 세우는 대화법.",
       "url": "",
-      "file": "2026-07-15-calm-talk.md"
+      "file": "2026-07-15-calm-talk.md",
+      "driveId": "1P4vlfjZkauvWs5IqQ7JpVo9iLXkQYzemfM_zB4R0rE4"
     }
   ]
 }
