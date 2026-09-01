@@ -2,7 +2,7 @@
    - 앱 껍데기: 캐시 우선 (빠른 실행 / 오프라인)
    - 콘텐츠(content/): 네트워크 우선 (새 글이 바로 반영)
    앱 파일을 수정했을 때는 아래 VERSION 숫자만 올리면 됩니다. */
-const VERSION = 'mentor-v2';
+const VERSION = 'mentor-v3';
 const SHELL = [
   './', './index.html', './manifest.json',
   './icons/icon-192.png', './icons/icon-512.png',

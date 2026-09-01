@@ -163,6 +163,14 @@ mark.hl2{background:#F7B8D2}
 .hltool .sw0{background:var(--mark)}
 .hltool .sw1{background:#B6E7A0}
 .hltool .sw2{background:#F7B8D2}
+.hlpal{display:inline-flex;gap:5px;align-items:center;margin-left:2px}
+.hlpal button{width:22px;height:22px;border-radius:6px;border:1px solid var(--line);padding:0}
+.hlpal .sw0{background:var(--mark)}
+.hlpal .sw1{background:#B6E7A0}
+.hlpal .sw2{background:#F7B8D2}
+.hlpal button[aria-pressed="true"]{outline:2px solid var(--ink);outline-offset:1px}
+.body.tapmode{-webkit-user-select:none;user-select:none}
+.body.tapmode h2,.body.tapmode h3,.body.tapmode p,.body.tapmode li,.body.tapmode blockquote{cursor:pointer}
 </style>
 </head>
 <body>
@@ -315,9 +323,9 @@ function hlApply(block, ranges){
   });
 }
 const HL = {
-  id:null, tool:null, pending:null,
+  id:null, tool:null, pending:null, tapMode:false, color:0,
   mount(id){
-    this.id=id; this.pending=null;
+    this.id=id; this.pending=null; this.tapMode=false; this.color=LS.get('hlColor',0);
     this.render();
     const body=$('#body'); if(!body) return;
     const onUp = ()=>setTimeout(()=>this.onSelect(),0);
@@ -325,8 +333,46 @@ const HL = {
     body.addEventListener('touchend', onUp);
     body.addEventListener('click', e=>{
       const mk = e.target.closest && e.target.closest('mark.hl');
-      if(mk) this.removeMark(mk);
+      if(mk){ this.removeMark(mk); return; }
+      if(this.tapMode) this.tapHighlight(e);
     });
+    // 형광펜 모드 토글 + 색 선택 (모바일 친화)
+    const modeBtn=$('#hlMode'), pal=$('#hlPal');
+    if(modeBtn){
+      const syncPal=()=>$$('#hlPal [data-c]').forEach(b=>b.setAttribute('aria-pressed', (+b.dataset.c)===this.color));
+      modeBtn.addEventListener('click',()=>{
+        this.tapMode=!this.tapMode;
+        modeBtn.classList.toggle('on',this.tapMode);
+        modeBtn.setAttribute('aria-pressed',this.tapMode);
+        body.classList.toggle('tapmode',this.tapMode);
+        if(pal) pal.hidden=!this.tapMode;
+        this.hide();
+      });
+      if(pal){ pal.addEventListener('click',e=>{ const b=e.target.closest('[data-c]'); if(!b)return; this.color=+b.dataset.c; LS.set('hlColor',this.color); syncPal(); }); syncPal(); }
+    }
+  },
+  // 탭한 지점의 '문장' 하나를 현재 색으로 칠함
+  tapHighlight(e){
+    const body=$('#body'); if(!body) return;
+    let pos=null;
+    if(document.caretRangeFromPoint){ const r=document.caretRangeFromPoint(e.clientX,e.clientY); if(r) pos={node:r.startContainer,off:r.startOffset}; }
+    else if(document.caretPositionFromPoint){ const c=document.caretPositionFromPoint(e.clientX,e.clientY); if(c) pos={node:c.offsetNode,off:c.offset}; }
+    const blocks=$$(HL_SEL,body);
+    let block=null, offset=0;
+    if(pos){ block=this.blockOf(pos.node, blocks); if(block) offset=hlOffset(block,pos.node,pos.off); }
+    if(!block){ block=this.blockOf(e.target, blocks); }
+    if(!block) return;
+    const text=block.textContent, END=/[.!?…]/;
+    let s=0, en=text.length;
+    for(let i=offset-1;i>=0;i--){ if(END.test(text[i])){ s=i+1; break; } }
+    for(let i=offset;i<text.length;i++){ if(END.test(text[i])){ en=i+1; break; } }
+    while(s<en && /\s/.test(text[s])) s++;
+    if(en<=s) return;
+    const bi=blocks.indexOf(block);
+    const all=LS.get('hl:'+this.id,[]);
+    all.push({b:bi, s, e:en, c:this.color});
+    LS.set('hl:'+this.id, all);
+    this.render();
   },
   render(){
     const body=$('#body'); if(!body) return;
@@ -336,6 +382,7 @@ const HL = {
     blocks.forEach((b,bi)=>{ const rs=all.filter(r=>r.b===bi); if(rs.length) hlApply(b,rs); });
   },
   onSelect(){
+    if(this.tapMode){ this.hide(); return; }
     const body=$('#body'); const sel=window.getSelection();
     if(!body||!sel||sel.isCollapsed||!sel.rangeCount){ this.hide(); return; }
     const rng=sel.getRangeAt(0);
@@ -473,8 +520,14 @@ async function renderPost(id){
         <span>· 약 ${readMin(text)}분</span>
         ${p.url?`<span>· <a href="${p.url}" target="_blank" rel="noopener">원본 보기</a></span>`:''}
         <button class="bmline ${BM.has(p.id)?'on':''}" id="bmLine" aria-pressed="${BM.has(p.id)}">${bmSvg(BM.has(p.id))}<span>북마크</span></button>
+        <button class="bmline" id="hlMode" aria-pressed="false">🖍 형광펜</button>
+        <span class="hlpal" id="hlPal" hidden>
+          <button class="sw0" data-c="0" aria-label="노랑"></button>
+          <button class="sw1" data-c="1" aria-label="초록"></button>
+          <button class="sw2" data-c="2" aria-label="분홍"></button>
+        </span>
       </div>
-      <p class="hint">문장을 드래그하면 형광펜을 칠할 수 있어요. 칠한 곳을 다시 누르면 지워집니다.</p>
+      <p class="hint">PC는 문장을 드래그해서 색칠. 폰은 <b>🖍 형광펜</b>을 켜고 문장을 탭하세요. 칠한 곳을 다시 누르면 지워집니다.</p>
       <div class="body" id="body">${md(text)}</div>
     </article>`;
   const readMap = LS.get('read',{}); readMap[p.id]=Date.now(); LS.set('read',readMap);
