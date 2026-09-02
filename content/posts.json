@@ -1,12 +1,48 @@
 {
   "posts": [
     {
+      "id": "2026-09-02-likable-conversation",
+      "title": "호감을 부르는 대화의 기술 — 김경일 교수의 심리학적 통찰",
+      "date": "2026-09-02",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "대화",
+        "심리",
+        "관계"
+      ],
+      "summary": "사람이 대화에서 가장 원하는 것은 '따뜻함'. 비호감 제거, 숨은 장점 칭찬, 제3자 칭찬 전달, '왜냐하면'과 긍정 프레이밍으로 호감을 얻는 법.",
+      "url": "",
+      "file": "2026-09-02-likable-conversation.md",
+      "driveId": "1JH5GJVDiObdVRHmEYyVOx5PI2Xd_i98lhS6tcaLwHrk"
+    },
+    {
+      "id": "2026-09-02-healthy-diet-7-rules",
+      "title": "건강한 다이어트를 위한 7가지 핵심 원칙 — 이진복 원장",
+      "date": "2026-09-02",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "건강",
+        "다이어트",
+        "습관"
+      ],
+      "summary": "월 2kg 완만 감량을 목표로 정제 탄수화물 절제, 단백질 확대, 혈당·당 독소 관리, 간헐적 단식, 수면·스트레스 조절, 식후 걷기를 실천하는 법.",
+      "url": "",
+      "file": "2026-09-02-healthy-diet-7-rules.md",
+      "driveId": "1yZPftRRXy980iIWfjui3mf5osxKaulSyYge6VoXDmLA"
+    },
+    {
       "id": "2026-09-01-work-happiness",
       "title": "일과 삶의 조화로 행복을 설계하는 법 — 김은주 교수",
       "date": "2026-09-01",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["행복", "자기계발", "심리"],
+      "tags": [
+        "행복",
+        "자기계발",
+        "심리"
+      ],
       "summary": "일은 행복의 장애물이 아니라 자아실현의 도구다. 자기결정성 3요소, 성장 마인드셋, 자극과 반응 사이의 태도 선택.",
       "url": "",
       "file": "2026-09-01-work-happiness.md",
@@ -18,7 +54,11 @@
       "date": "2026-09-01",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["AI", "커리어", "자기계발"],
+      "tags": [
+        "AI",
+        "커리어",
+        "자기계발"
+      ],
       "summary": "정답은 기계에 맡기고 사랑에서 나오는 질문과 현장의 '방법'으로 원본이 되는 법. 끈기보다 끊기, 넘버원보다 온리원.",
       "url": "",
       "file": "2026-09-01-irreplaceable-ai.md",
@@ -30,7 +70,11 @@
       "date": "2026-07-22",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["연금", "노후", "재테크"],
+      "tags": [
+        "연금",
+        "노후",
+        "재테크"
+      ],
       "summary": "국민연금은 언제 받아야 유리한가, 추납 절세, 그리고 국민·퇴직·개인·주택 4층 연금으로 월 300~500만 원 현금흐름을 만드는 법.",
       "url": "",
       "file": "2026-07-22-pension.md"
@@ -41,7 +85,11 @@
       "date": "2026-07-20",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["독서", "문해력", "자기계발"],
+      "tags": [
+        "독서",
+        "문해력",
+        "자기계발"
+      ],
       "summary": "독서는 정보 훑기가 아니라 뇌 전체를 쓰는 고강도 운동이다. '멈춤'과 '씨름'으로 질적 독서를 하는 법.",
       "url": "",
       "file": "2026-07-20-reading.md"
@@ -52,7 +100,10 @@
       "date": "2026-07-20",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["투자", "마인드셋"],
+      "tags": [
+        "투자",
+        "마인드셋"
+      ],
       "summary": "수익률을 1%p 올리는 것보다 10년을 더 버티는 쪽이 결과를 훨씬 크게 바꾼다는 이야기.",
       "url": "",
       "file": "2026-07-20-compounding.md"
@@ -63,7 +114,10 @@
       "date": "2026-07-18",
       "kind": "video",
       "source": "YouTube",
-      "tags": ["일하는법", "생산성"],
+      "tags": [
+        "일하는법",
+        "생산성"
+      ],
       "summary": "집중은 의지가 아니라 환경 설계의 문제다. 90분 단위 블록을 만드는 방법.",
       "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       "file": "2026-07-18-deepwork.md"
@@ -74,7 +128,11 @@
       "date": "2026-07-15",
       "kind": "article",
       "source": "NotebookLM 요약",
-      "tags": ["소통", "심리", "관계"],
+      "tags": [
+        "소통",
+        "심리",
+        "관계"
+      ],
       "summary": "감정을 억누르거나 폭발시키는 대신, 사실·느낌·필요·요구 4단계로 당당하게 경계를 세우는 대화법.",
       "url": "",
       "file": "2026-07-15-calm-talk.md",
