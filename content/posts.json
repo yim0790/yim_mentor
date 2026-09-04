@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "2026-09-04-brain-action",
+      "title": "행동의 뇌과학 — 행동이 뇌를 바꾸는 원리와 실천 전략",
+      "date": "2026-09-04",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "뇌과학",
+        "행동",
+        "습관"
+      ],
+      "summary": "의욕이 생겨야 행동하는 게 아니라 행동해야 의욕이 생긴다. 입력보다 출력이 뇌를 바꾸고, 반복된 반사가 곧 나의 회로가 된다는 장동선 박사의 뇌과학 정리.",
+      "url": "",
+      "file": "2026-09-04-brain-action.md",
+      "driveId": "1d-IIRping1QmfrnQ7ndcsMJOLnn0pHYDidjgbkdXnoI"
+    },
+    {
+      "id": "2026-09-03-midlife-dignity",
+      "title": "중년의 품격과 아우라 — 이호선 교수의 핵심 지침",
+      "date": "2026-09-03",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "중년",
+        "품격",
+        "관계"
+      ],
+      "summary": "중년의 가치는 나이가 아닌 역할에서 나온다. 깔끔한 의복으로 자신을 돌보고, 욕설·이간질·자랑질을 끊고, 타인에게 진심으로 감탄하는 세 가지 축.",
+      "url": "",
+      "file": "2026-09-03-midlife-dignity.md",
+      "driveId": "1Y9yElUmsJmmjKU1EZk4hbFXNJWuBJ-cvMs-JZsEzq8w"
+    },
+    {
       "id": "2026-09-02-likable-conversation",
       "title": "호감을 부르는 대화의 기술 — 김경일 교수의 심리학적 통찰",
       "date": "2026-09-02",
