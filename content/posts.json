@@ -1,6 +1,54 @@
 {
   "posts": [
     {
+      "id": "2026-09-07-glp1-addiction-magic",
+      "title": "비만약의 '기분 좋은 배신' — 식욕을 넘어 중독까지 치료하는 GLP-1의 마법",
+      "date": "2026-09-07",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "GLP-1",
+        "중독",
+        "뇌과학"
+      ],
+      "summary": "비만과 중독은 의지가 아닌 뇌 보상 회로의 문제다. GLP-1은 '덜 원하게' 만들어 푸드 노이즈를 없애고 알코올·마약 등 5대 중독까지 완화하지만, 부작용과 오남용 경계가 필요하다.",
+      "url": "",
+      "file": "2026-09-07-glp1-addiction-magic.md",
+      "driveId": "1AOoelKyJN5FdBfRHLEeDdyawyvR9BcFRBfdUvZpAdBQ"
+    },
+    {
+      "id": "2026-09-07-running-7-minutes",
+      "title": "하루 7분 달리기의 기적 — 의사가 말하는 뇌와 몸을 깨우는 가장 강력한 방법",
+      "date": "2026-09-07",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "달리기",
+        "건강",
+        "뇌건강"
+      ],
+      "summary": "걷기 2시간의 이득을 달리기 1분이 대신한다. 주 50분(하루 7분) 달리기로 사망률이 절반으로 줄고, 40대가 뇌 건강을 지킬 골든타임이라는 정세희 교수의 의학적 통찰.",
+      "url": "",
+      "file": "2026-09-07-running-7-minutes.md",
+      "driveId": "1Q8Bu8GDJR47HE7x-904A2PgQri4aC2mmPwjChjOP6qE"
+    },
+    {
+      "id": "2026-09-07-glp1-addiction-research",
+      "title": "GLP-1 수용체 작용제의 확장성 — 비만 치료를 넘어 중독 치료제로의 가능성",
+      "date": "2026-09-07",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "GLP-1",
+        "중독",
+        "의학"
+      ],
+      "summary": "GLP-1 제제가 뇌 보상 회로의 '갈망'을 줄여 5대 중독을 낮추고 사망률을 50% 감소시킨 연구 데이터, 경제적 영향, 부작용·오남용 주의사항을 정리한 보고서.",
+      "url": "",
+      "file": "2026-09-07-glp1-addiction-research.md",
+      "driveId": "1tdtrZGkeG-_-S4q6NeDviBIpWXYTtF0WFmJr2FjNpUk"
+    },
+    {
       "id": "2026-09-04-brain-action",
       "title": "행동의 뇌과학 — 행동이 뇌를 바꾸는 원리와 실천 전략",
       "date": "2026-09-04",
