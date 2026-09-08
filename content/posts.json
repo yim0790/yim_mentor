@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-09-08-agency-crisis-not-burnout",
+      "title": "번아웃인 줄 알았는데 — 김경일 교수가 말하는 현대인의 심리 코드",
+      "date": "2026-09-08",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "인지심리",
+        "주체성",
+        "번아웃"
+      ],
+      "summary": "사표를 던지고 싶은 마음은 번아웃이 아니라 '주인공이라는 느낌'을 잃은 주체성의 위기다. 자극 중독의 원인, 신조어가 증명하는 진화, 공간과 의식으로 모드를 전환하는 법을 짚는다.",
+      "url": "",
+      "file": "2026-09-08-agency-crisis-not-burnout.md",
+      "driveId": "19h6OkzZrpXejD04NGs637KKWENYqfcOegu9tELbY95w"
+    },
+    {
       "id": "2026-09-07-glp1-addiction-magic",
       "title": "비만약의 '기분 좋은 배신' — 식욕을 넘어 중독까지 치료하는 GLP-1의 마법",
       "date": "2026-09-07",
