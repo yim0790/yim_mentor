@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-09-11-thinking-styles",
+      "title": "시스템 사고와 구조적 사고 — 그리고 그 반대편에 있는 것들",
+      "date": "2026-09-11",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "사고법",
+        "시스템사고",
+        "문제해결"
+      ],
+      "summary": "시스템·구조·통합·단계적 사고를 정리하고, 파편적·선형적·환원주의·직관·산발적 사고라는 반대편을 짚어 문제 접근 방식을 점검한다.",
+      "url": "",
+      "file": "2026-09-11-thinking-styles.md",
+      "driveId": "1UIU95zs_MMQZMKj0_KQdG3rBdbN926HHY3c-FPqSP-0"
+    },
+    {
       "id": "2026-09-08-agency-crisis-not-burnout",
       "title": "번아웃인 줄 알았는데 — 김경일 교수가 말하는 현대인의 심리 코드",
       "date": "2026-09-08",
