@@ -1,6 +1,54 @@
 {
   "posts": [
     {
+      "id": "2026-09-18-geo-ai-search",
+      "title": "클릭의 시대는 끝났다 — AI 검색의 선택을 받는 브랜드의 5가지 비밀",
+      "date": "2026-09-18",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "GEO",
+        "AI검색",
+        "마케팅"
+      ],
+      "summary": "AI 오버뷰·AI 브리핑이 클릭률을 반토막 낸 시대, 답변 속에 브랜드를 심는 GEO 전략 5가지와 셀프 진단법을 정리한다.",
+      "url": "",
+      "file": "2026-09-18-geo-ai-search.md",
+      "driveId": "1cF92jcEb1qS3iIpWIEtI8Qrc0dTVDpEgRyAYVPTWF2s"
+    },
+    {
+      "id": "2026-09-18-snu-a-plus-paradox",
+      "title": "서울대 A+의 배신 — 최고의 수재들이 '앵무새'를 선택한 이유",
+      "date": "2026-09-18",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "교육",
+        "학습법",
+        "비판적사고"
+      ],
+      "summary": "우등생 150명·설문 1,213명을 분석한 결과, 교수의 말을 그대로 복제할수록 학점이 오르는 구조가 학생의 사고와 자아를 지우고 있었다.",
+      "url": "",
+      "file": "2026-09-18-snu-a-plus-paradox.md",
+      "driveId": "1GrlEfrMylLjfGo0qejlRCV_XB-M1eEP6c7n6puFQREE"
+    },
+    {
+      "id": "2026-09-18-real-intelligence-conversation",
+      "title": "똑똑한 사람과 대화하면 왜 기가 빨릴까 — 진짜 지능의 조건",
+      "date": "2026-09-18",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "대화법",
+        "관계지능",
+        "심리"
+      ],
+      "summary": "기 빨리는 대화의 원인은 IQ가 아니라 가르치려 드는 태도다. 표정의 영향력, 10%의 법칙, 자극과 반응 사이의 공간을 짚는다.",
+      "url": "",
+      "file": "2026-09-18-real-intelligence-conversation.md",
+      "driveId": "1Q4NFouGXrn7i3scj-N5n5Q3Ecl9nf_Y-ALW8IP3P0yI"
+    },
+    {
       "id": "2026-09-11-thinking-styles",
       "title": "시스템 사고와 구조적 사고 — 그리고 그 반대편에 있는 것들",
       "date": "2026-09-11",
