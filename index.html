@@ -77,7 +77,7 @@ a{color:var(--accent)}
 .search input::placeholder{color:var(--mute)}
 .chips{display:flex;gap:7px;flex-wrap:wrap;margin:8px 0 16px}
 .chips.collapsed{display:none}
-.filterbar{margin:0 0 4px}
+.filterbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 4px}
 .filtertoggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--ink2);border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 13px}
 .filtertoggle .chev{display:grid;place-items:center;transition:transform .2s}
 .filtertoggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
@@ -143,8 +143,15 @@ select.mini{max-width:130px}
 /* ── 북마크 ─────────────────────────── */
 .wrap{position:relative}
 .row{position:relative}
-.row a{padding-right:40px}
+.row a{padding-right:78px}
+.rowacts{position:absolute;right:0;top:12px;display:flex}
+.rowacts button{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--mute)}
+.rowacts button:hover{background:var(--card)}
+.rowacts .hidebtn:hover{color:#c0392b}
+.rowacts .restore:hover{color:var(--accent)}
 .bm{position:absolute;right:-2px;top:13px;width:36px;height:36px;border-radius:9px;display:grid;place-items:center;color:var(--mute)}
+.rowacts .bm{position:static;right:auto;top:auto}
+.chip.hdc[aria-pressed="true"]{background:#5b6472;border-color:#5b6472;color:#fff}
 .bm:hover{background:var(--card)}
 .bm.on{color:#E9B500}
 .chip.bmc[aria-pressed="true"]{background:#E9B500;border-color:#E9B500;color:#1b1b1b}
@@ -234,7 +241,12 @@ const LS = {
   set:(k,v)=>{try{localStorage.setItem('mentor:'+k,JSON.stringify(v))}catch(e){}}
 };
 let POSTS = [];
-let filter = {q:'', tag:'', bm:false};
+let filter = {q:'', tag:'', bm:false, hidden:false};
+const HD = {
+  map:()=>LS.get('hidden',{}),
+  hide(id){ const m=LS.get('hidden',{}); m[id]=Date.now(); LS.set('hidden',m); },
+  restore(id){ const m=LS.get('hidden',{}); delete m[id]; LS.set('hidden',m); }
+};
 let filterOpen = LS.get('filterOpen', false);
 
 /* ── 북마크 (글 단위, 기기 저장) ───────────── */
@@ -453,7 +465,11 @@ function renderList(){
   const q = filter.q.trim().toLowerCase();
   const bmMap = BM.map();
   const bmCount = POSTS.filter(p=>bmMap[p.id]).length;
+  const hiddenMap = HD.map();
+  const hiddenCount = POSTS.filter(p=>hiddenMap[p.id]).length;
   const items = POSTS.filter(p=>{
+    if(filter.hidden) return !!hiddenMap[p.id];
+    if(hiddenMap[p.id]) return false;
     if(filter.bm && !bmMap[p.id]) return false;
     if(filter.tag && !(p.tags||[]).includes(filter.tag)) return false;
     if(!q) return true;
@@ -476,6 +492,7 @@ function renderList(){
         <span>태그 필터</span>
         ${!filterOpen && (filter.bm||filter.tag) ? `<span class="fbactive">· ${filter.bm?'★ 북마크':'#'+filter.tag}</span>` : ''}
       </button>
+      ${hiddenCount?`<button class="chip hdc" data-hidden aria-pressed="${filter.hidden}">🙈 숨김 ${hiddenCount}</button>`:''}
     </div>
     <div class="chips ${filterOpen?'':'collapsed'}">
       <button class="chip bmc" data-bm aria-pressed="${filter.bm}">★ 북마크${bmCount?` ${bmCount}`:''}</button>
@@ -484,21 +501,27 @@ function renderList(){
     </div>
     ${items.length ? `<ul class="list">${items.map(p=>`
       <li class="row ${readMap[p.id]?'read':''}">
-        <button class="bm ${bmMap[p.id]?'on':''}" data-bm-id="${p.id}" aria-label="북마크" aria-pressed="${!!bmMap[p.id]}">${bmSvg(!!bmMap[p.id])}</button>
+        <div class="rowacts">${filter.hidden
+          ? `<button class="restore" data-restore-id="${p.id}" aria-label="복원"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14l-4-4 4-4"/><path d="M5 10h11a4 4 0 0 1 0 8h-1"/></svg></button>`
+          : `<button class="bm ${bmMap[p.id]?'on':''}" data-bm-id="${p.id}" aria-label="북마크" aria-pressed="${!!bmMap[p.id]}">${bmSvg(!!bmMap[p.id])}</button><button class="hidebtn" data-hide-id="${p.id}" aria-label="숨기기"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg></button>`
+        }</div>
         <a href="#/p/${encodeURIComponent(p.id)}">
           <div class="meta"><span class="dot"></span><span>${fmtDate(p.date)}</span><span class="kind">${kindLabel(p.kind)}</span>${p.source?`<span class="tag">· ${p.source}</span>`:''}</div>
           <h2>${p.title}</h2>
           <div class="tail">${(p.tags||[]).map(t=>'#'+t).join(' ')}</div>
         </a>
       </li>`).join('')}</ul>`
-      : `<div class="empty">${filter.bm?'북마크한 글이 없습니다.':'조건에 맞는 콘텐츠가 없습니다.'}</div>`}
+      : `<div class="empty">${filter.hidden?'숨긴 글이 없습니다.':filter.bm?'북마크한 글이 없습니다.':'조건에 맞는 콘텐츠가 없습니다.'}</div>`}
   `;
 
   const qi = $('#q');
   qi.addEventListener('input', e=>{ filter.q = e.target.value; const pos=e.target.selectionStart; renderList(); const n=$('#q'); n.focus(); n.setSelectionRange(pos,pos); });
-  $$('.chip[data-tag]').forEach(b=>b.addEventListener('click',()=>{ filter.tag = b.dataset.tag; filter.bm=false; renderList(); }));
-  const bc = $('.chip.bmc'); if(bc) bc.addEventListener('click',()=>{ filter.bm=!filter.bm; filter.tag=''; renderList(); });
+  $$('.chip[data-tag]').forEach(b=>b.addEventListener('click',()=>{ filter.tag = b.dataset.tag; filter.bm=false; filter.hidden=false; renderList(); }));
+  const bc = $('.chip.bmc'); if(bc) bc.addEventListener('click',()=>{ filter.bm=!filter.bm; filter.tag=''; filter.hidden=false; renderList(); });
+  const hc = $('.chip.hdc'); if(hc) hc.addEventListener('click',()=>{ filter.hidden=!filter.hidden; filter.bm=false; filter.tag=''; renderList(); });
   const ft = $('#filterToggle'); if(ft) ft.addEventListener('click',()=>{ filterOpen=!filterOpen; LS.set('filterOpen',filterOpen); renderList(); });
+  $$('.hidebtn[data-hide-id]').forEach(b=>b.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); HD.hide(b.dataset.hideId); renderList(); }));
+  $$('[data-restore-id]').forEach(b=>b.addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); HD.restore(b.dataset.restoreId); if(!POSTS.some(p=>HD.map()[p.id])) filter.hidden=false; renderList(); }));
   $$('.bm[data-bm-id]').forEach(b=>b.addEventListener('click',e=>{
     e.preventDefault(); e.stopPropagation();
     const on = BM.toggle(b.dataset.bmId);
