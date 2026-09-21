@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-09-21-mounjaro-strategy-guide",
+      "title": "마운자로, 주사만 맞으면 끝? 요요 막고 효과 200% 올리는 공략법",
+      "date": "2026-09-21",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "건강",
+        "다이어트",
+        "습관"
+      ],
+      "summary": "단 음식이 당기는 건 의지가 아니라 약의 반응 — 거꾸로 식사법, 단백질 80g, 단맛 2주 금기, 식후 10분 산책으로 정체기와 요요를 막는 법을 정리한다.",
+      "url": "",
+      "file": "2026-09-21-mounjaro-strategy-guide.md",
+      "driveId": "1EAA10h7BhhSPV-gyqT5btb-NTmELerP_EDhteqDnhrg"
+    },
+    {
       "id": "2026-09-21-cortisol-belly-fat",
       "title": "뱃살이 안 빠졌던 진짜 이유 — 코르티솔의 배신과 3단계 탈출법",
       "date": "2026-09-21",
