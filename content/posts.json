@@ -1,6 +1,54 @@
 {
   "posts": [
     {
+      "id": "2026-09-30-ai-agentification",
+      "title": "AI에게 '해줘'라고 말하면 안 되는 이유: 100년의 삶을 1,000년으로 늘리는 AI 공생법",
+      "date": "2026-09-30",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "AI",
+        "생산성",
+        "메타인지"
+      ],
+      "summary": "AI를 결과물 요청용이 아닌 '도구를 만드는 도구'로 써서 업무를 에이전트화하면 실질적 수명이 확장되고, 인간의 경쟁력은 메타인지와 섬세한 감각에 남는다.",
+      "url": "",
+      "file": "2026-09-30-ai-agentification.md",
+      "driveId": "15wImegCxwsCGDf9zots-mrk0nQJigLrpc49ARs4f9mw"
+    },
+    {
+      "id": "2026-09-30-retirement-second-life",
+      "title": "은퇴 후 인생 격차가 벌어지는 5가지 이유: 김민식 PD가 깨달은 제2의 인생 문법",
+      "date": "2026-09-30",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "커리어",
+        "은퇴",
+        "루틴"
+      ],
+      "summary": "새로 배우기, 10분의 1 전략, 꿀 바른 작은 루틴, 취미의 특기화, 미래의 나와 복식 경기 — 은퇴 후 삶을 가르는 5가지 통찰.",
+      "url": "",
+      "file": "2026-09-30-retirement-second-life.md",
+      "driveId": "1k7NJJJHOoneXkueD7yAvxD4-QAIVs-xuNGEjty1uxBc"
+    },
+    {
+      "id": "2026-09-30-custom-gpt-knowledge-base",
+      "title": "나만의 맞춤형 GPT를 완성하는 '지식 베이스' 구축의 비밀",
+      "date": "2026-09-30",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "AI",
+        "데이터",
+        "커스텀GPT"
+      ],
+      "summary": "커스텀 GPT의 성능은 정제된 지식 베이스의 품질이 좌우하며, Cheerio 크롤러와 JSON Overview 포맷이 효율적이다.",
+      "url": "",
+      "file": "2026-09-30-custom-gpt-knowledge-base.md",
+      "driveId": "1-geaZzA4Zk1G7Rvty_T2VDw-8aX1a4Znj9UdE0Sxds8"
+    },
+    {
       "id": "2026-09-21-mounjaro-3month-appetite",
       "title": "마운자로, 3개월 지나면 약효 끝? 다시 배고파지는 진짜 이유와 대처법",
       "date": "2026-09-21",
