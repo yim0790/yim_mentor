@@ -1,6 +1,54 @@
 {
   "posts": [
     {
+      "id": "2026-10-06-slow-running-knee",
+      "title": "슬로우 러닝이 무릎 관절을 망치는 뜻밖의 이유 5가지",
+      "date": "2026-10-06",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "건강",
+        "운동",
+        "관절"
+      ],
+      "summary": "슬로우 러닝도 비행 구간이 있는 달리기라서 근감소증·오버스트라이딩이 있는 중장년층에게는 무릎 부담이 크므로, 자가진단과 대안 운동이 필요하다.",
+      "url": "",
+      "file": "2026-10-06-slow-running-knee.md",
+      "driveId": "13IU6PefA7sR58PO84bEVEoJj5kDgHmXpDL9Aj3Q7T7Q"
+    },
+    {
+      "id": "2026-10-06-ai-marketing-two-tools",
+      "title": "딱 두 가지만: 빌더 조쉬가 밝히는 AI 마케팅 자동화의 핵심과 미래",
+      "date": "2026-10-06",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "AI",
+        "마케팅",
+        "자동화"
+      ],
+      "summary": "클로드 코드와 코덱스 두 도구로 멀티 에이전트 팀을 구축하고, 인간은 시장 맥락을 읽는 전략 레이어에 집중해야 한다.",
+      "url": "",
+      "file": "2026-10-06-ai-marketing-two-tools.md",
+      "driveId": "1iUtKePB5TFBCl6swhmm-J5OQgcKteQXroZxVF6EBM5c"
+    },
+    {
+      "id": "2026-10-06-trend-korea-2027",
+      "title": "[트렌드 코리아 2027] AI 기본값 시대의 10대 트렌드 키워드 종합 분석",
+      "date": "2026-10-06",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "트렌드",
+        "소비",
+        "AI"
+      ],
+      "summary": "AI가 기본값이 된 2027년에는 권태 사회·ROI·휴먼 엣지·안목 자본 등 10대 키워드가 인간 고유 역량의 재발굴로 수렴한다.",
+      "url": "",
+      "file": "2026-10-06-trend-korea-2027.md",
+      "driveId": "1yX8b-9_qr-xIkn7zuBC9_UJYajFmeWhAVn6JOJ0zpps"
+    },
+    {
       "id": "2026-09-30-ai-agentification",
       "title": "AI에게 '해줘'라고 말하면 안 되는 이유: 100년의 삶을 1,000년으로 늘리는 AI 공생법",
       "date": "2026-09-30",
