@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-10-13-ai-branding-observation",
+      "title": "AI 시대의 브랜딩 법칙과 소비자 관찰 전략",
+      "date": "2026-10-13",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "브랜딩",
+        "마케팅",
+        "AI"
+      ],
+      "summary": "AI가 고도화될수록 브랜딩의 승부처는 인간의 크리에이티브·취향 기반 타겟팅·현장 관찰이며, 애매한 포지셔닝의 브랜드는 AI 추천 단계에서 도태된다.",
+      "url": "",
+      "file": "2026-10-13-ai-branding-observation.md",
+      "driveId": "1YQHhqBXtffzMQm87qjt6zNJhTcuzehNtFaVrZlPA6ds"
+    },
+    {
       "id": "2026-10-06-slow-running-knee",
       "title": "슬로우 러닝이 무릎 관절을 망치는 뜻밖의 이유 5가지",
       "date": "2026-10-06",
