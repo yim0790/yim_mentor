@@ -1,6 +1,38 @@
 {
   "posts": [
     {
+      "id": "2026-10-19-relationship-threat-types",
+      "title": "인간관계의 위협 유형 분석과 대응 전략: 정약용의 철학과 현대 심리학",
+      "date": "2026-10-19",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "인간관계",
+        "심리학",
+        "정약용"
+      ],
+      "summary": "교활한 인물의 특징과 어둠의 삼각형·은폐 나르시시즘을 분석하고, 정약용의 처세 철학과 5대 자기 보호 수칙으로 대응하는 방법을 정리한다.",
+      "url": "",
+      "file": "2026-10-19-relationship-threat-types.md",
+      "driveId": "1c5clcB95sXzWgGIudnmXsuAhmEDvpCP3Gbj0wf-YjPU"
+    },
+    {
+      "id": "2026-10-19-book-my-life-briefing",
+      "title": "[도서 브리핑] 내 인생이 왜 당신 마음에 들어야 합니까",
+      "date": "2026-10-19",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "도서",
+        "심리학",
+        "주체성"
+      ],
+      "summary": "김경일 교수의 책이 말하는 타인 중심 삶의 모순, 감정 관리법, 회복탄력성, 삶의 운전대를 되찾는 방법을 정리한다.",
+      "url": "",
+      "file": "2026-10-19-book-my-life-briefing.md",
+      "driveId": "1dGS3v2eWOvTJCh8Ix_PvuPQAoXc3U3Mmr8pWYNBSeVg"
+    },
+    {
       "id": "2026-10-13-ai-branding-observation",
       "title": "AI 시대의 브랜딩 법칙과 소비자 관찰 전략",
       "date": "2026-10-13",
