@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-10-21-ai-automation-without-consulting",
+      "title": "외부 컨설팅 없는 기업 AI 자동화: 3단계 도입 전략과 실무 인사이트",
+      "date": "2026-10-21",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "AI자동화",
+        "업무혁신",
+        "데이터"
+      ],
+      "summary": "데이터 구조화를 먼저 하고 모으기·말하기·맡기기 3단계와 80/20 업무 분담으로 컨설팅 없이 기업 AI 자동화를 구현하는 방법을 정리한다.",
+      "url": "",
+      "file": "2026-10-21-ai-automation-without-consulting.md",
+      "driveId": "1KngPpd7XR2tK5tFrtCwaOid1agAYQm-Ou4fCqJHUYIY"
+    },
+    {
       "id": "2026-10-19-relationship-threat-types",
       "title": "인간관계의 위협 유형 분석과 대응 전략: 정약용의 철학과 현대 심리학",
       "date": "2026-10-19",
