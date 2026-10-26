@@ -1,6 +1,22 @@
 {
   "posts": [
     {
+      "id": "2026-10-26-obesity-doctor-risky-foods",
+      "title": "비만 전문의가 분석한 4가지 위험 식품과 체중 증가 습관",
+      "date": "2026-10-26",
+      "kind": "article",
+      "source": "NotebookLM 요약",
+      "tags": [
+        "건강",
+        "다이어트",
+        "식습관"
+      ],
+      "summary": "시리얼·아이스크림·감자튀김·과일 주스와 액상과당의 위험, 성분표 판별법, 수면·야식 관리까지 비만 전문의의 조언을 정리한다.",
+      "url": "",
+      "file": "2026-10-26-obesity-doctor-risky-foods.md",
+      "driveId": "13XLldXUzrvpWemyuMiPI_0O6FPnB_hgYyYgSLuot5GE"
+    },
+    {
       "id": "2026-10-21-ai-automation-without-consulting",
       "title": "외부 컨설팅 없는 기업 AI 자동화: 3단계 도입 전략과 실무 인사이트",
       "date": "2026-10-21",
